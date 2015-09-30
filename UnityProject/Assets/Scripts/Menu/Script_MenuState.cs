@@ -54,6 +54,8 @@ public class Script_MenuState : MonoBehaviour {
         {
             //Defines the state transitions where
             //{ new MenuTransition(actual state of the machine, transition state/command), final state of the machine) }
+			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_CONNECT), MenuStates.MENU_CONNECT },
+			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_SETUP), MenuStates.MENU_SETUP },
 
         };
 
