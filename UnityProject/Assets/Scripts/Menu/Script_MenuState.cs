@@ -54,7 +54,14 @@ public class Script_MenuState : MonoBehaviour {
         {
             //Defines the state transitions where
             //{ new MenuTransition(actual state of the machine, transition state/command), final state of the machine) }
-
+			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_CONNECT), MenuStates.MENU_CONNECT},
+			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_SETUP), MenuStates.MENU_SETUP},
+			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.QUIT_APPLICATION), MenuStates.MENU_QUITTING},
+			{new MenuTransitions(MenuStates.MENU_CONNECT, MenuCommands.GOTO_MAIN), MenuStates.MENU_MAIN},
+			{new MenuTransitions(MenuStates.MENU_CONNECT, MenuCommands.CONNECT_CLIENT),MenuStates.CONNECT_CONNECTING_TO_SERVER},
+			{new MenuTransitions(MenuStates.MENU_SETUP,MenuCommands.GOTO_MAIN),MenuStates.MENU_MAIN},
+			{new MenuTransitions(MenuStates.MENU_SETUP,MenuCommands.SETUP_HOST),MenuStates.SETUP_STARTING_HOST},
+			{new MenuTransitions(MenuStates.MENU_SETUP,MenuCommands.SETUP_SERVER),MenuStates.SETUP_STARTING_SERVER},
         };
 
         //Create the dictionary where
