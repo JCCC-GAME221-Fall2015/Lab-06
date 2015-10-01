@@ -56,6 +56,12 @@ public class Script_MenuState : MonoBehaviour {
             //{ new MenuTransition(actual state of the machine, transition state/command), final state of the machine) }
 			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_CONNECT), MenuStates.MENU_CONNECT },
 			{new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.GOTO_SETUP), MenuStates.MENU_SETUP },
+            {new MenuTransitions(MenuStates.MENU_MAIN, MenuCommands.QUIT_APPLICATION), MenuStates.MENU_QUITTING},
+            {new MenuTransitions(MenuStates.MENU_CONNECT, MenuCommands.GOTO_MAIN), MenuStates.MENU_MAIN},
+            {new MenuTransitions(MenuStates.MENU_CONNECT, MenuCommands.CONNECT_CLIENT), MenuStates.CONNECT_CONNECTING_TO_SERVER},
+            {new MenuTransitions(MenuStates.MENU_SETUP, MenuCommands.GOTO_MAIN), MenuStates.MENU_MAIN},
+            {new MenuTransitions(MenuStates.MENU_SETUP, MenuCommands.SETUP_HOST), MenuStates.SETUP_STARTING_HOST},
+            {new MenuTransitions(MenuStates.MENU_SETUP, MenuCommands.SETUP_SERVER), MenuStates.SETUP_STARTING_SERVER}
 
         };
 
@@ -63,7 +69,13 @@ public class Script_MenuState : MonoBehaviour {
         //{string that is passed by the button, command the string represets}
         enumParse = new Dictionary<string, MenuCommands>
         {
-
+            {"goto connect menu", MenuCommands.GOTO_CONNECT},
+            {"goto setup menu", MenuCommands.GOTO_SETUP},
+            {"goto main menu", MenuCommands.GOTO_MAIN},
+            {"quit application", MenuCommands.QUIT_APPLICATION},
+            {"setup host", MenuCommands.SETUP_HOST},
+            {"setup server", MenuCommands.SETUP_SERVER},
+            {"connect to server", MenuCommands.CONNECT_CLIENT}
         };
 
         Debug.Log("Curr state = " + CurrentState);
@@ -77,12 +89,17 @@ public class Script_MenuState : MonoBehaviour {
     MenuStates GetNext(MenuCommands command)
     {
         //Construct the new transition based on the machines current state, and the supplied transition/command
+        MenuTransitions newTransition = new MenuTransitions(CurrentState, command);
 
         //Location to store the new state for the machine to go into
+        MenuStates newState;
 
         //Make sure that the transition is valid, using the dictionary lookup
+        if (!allTransitions.TryGetValue(newTransition, out newState))
+            throw new UnityException("Invalid tranition " + CurrentState + " -> " + command);
 
         //If at this point we have not broken anything, return the new state
+        return newState;
     }
 
     /// <summary>
@@ -92,14 +109,20 @@ public class Script_MenuState : MonoBehaviour {
     public void MoveNextAndTransition(string command)
     {
         //Record the previous state for transition purposes
-        
+        PreviousState = CurrentState;
+
         //Location for the new command
+        MenuCommands newCommand;
 
         //Try to get the value
+        if (!enumParse.TryGetValue(command, out newCommand))
+            throw new UnityException("Invalid command " + command);
 
         //Setup the next state 
+        CurrentState = GetNext(newCommand);
 
         //Transition to the next state
+        Transition();
     }
 
     /// <summary>
@@ -107,7 +130,55 @@ public class Script_MenuState : MonoBehaviour {
     /// </summary>
     void Transition()
     {
-
+        switch(PreviousState)
+        {
+            case MenuStates.MENU_MAIN:
+                mainMenu.SetActive(false);
+                if (CurrentState == MenuStates.MENU_CONNECT)
+                {
+                    Debug.Log("Transition from Main to Connect");
+                    connectMenu.SetActive(true);
+                }
+                else if (CurrentState == MenuStates.MENU_SETUP)
+                {
+                    Debug.Log("Transition from Main to Start");
+                    setupMenu.SetActive(true);
+                }
+                else if(CurrentState == MenuStates.MENU_QUITTING)
+                {
+                    Debug.Log("Tranition from Main to Quit");
+                    Application.Quit();
+                }
+                break;
+            case MenuStates.MENU_CONNECT:
+                if(CurrentState == MenuStates.MENU_MAIN)
+                {
+                    Debug.Log("Transition from Connect to Main");
+                    connectMenu.SetActive(false);
+                    mainMenu.SetActive(true);
+                }
+                else if(CurrentState == MenuStates.CONNECT_CONNECTING_TO_SERVER)
+                {
+                    Debug.Log("Tranition from Connect to Connecting to Server");
+                }
+                break;
+            case MenuStates.MENU_SETUP:
+                if(CurrentState == MenuStates.MENU_MAIN)
+                {
+                    Debug.Log("Transition from Setup to Main");
+                    setupMenu.SetActive(false);
+                    mainMenu.SetActive(true);
+                }
+                else if(CurrentState == MenuStates.SETUP_STARTING_HOST)
+                {
+                    Debug.Log("Transition from Setup to Start Host");
+                }
+                else if (CurrentState == MenuStates.SETUP_STARTING_SERVER)
+                {
+                    Debug.Log("Transition from Setup to Server Start");
+                }
+                break;
+        }
     }
 
     /// <summary>
@@ -116,12 +187,26 @@ public class Script_MenuState : MonoBehaviour {
     /// <param name="message">The IP to update to</param>
     public void UpdateIP(Object message)
     {
+        Text textObj = ((GameObject)message).GetComponent<Text>();
+        if (textObj.text == "")
+            manager.networkAddress = "localhost";
+        else
+            manager.networkAddress = textObj.text;
 
+        Debug.Log("Updated address to -> " + textObj.text);
     }
 
     public void UpdatePort(Object message)
     {
+        Text textObj = ((GameObject)message).GetComponent<Text>();
+        int newPort;
 
+        if (int.TryParse(textObj.text, out newPort))
+            manager.networkPort = newPort;
+        else
+            manager.networkPort = 7777;
+
+        Debug.Log("Updating port to -> " + newPort.ToString());
     }
 
     public void UpdateName(Object message)
