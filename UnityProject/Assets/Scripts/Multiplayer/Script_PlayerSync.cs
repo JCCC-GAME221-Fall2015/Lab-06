@@ -37,12 +37,21 @@ public class Script_PlayerSync : NetworkBehaviour {
 
     void Start()
     {
-
+        if(!isLocalPlayer)
+        {
+            Destroy(myCameraObject);
+            Destroy(myRigidbody);
+            Destroy(myCollider);
+            Destroy(myController);
+        }
     }
 
     void FixedUpdate()
     {
-
+        if(isLocalPlayer)
+        {
+            TransmitRotation();
+        }
     }
 
     // Update is called once per frame
@@ -55,17 +64,20 @@ public class Script_PlayerSync : NetworkBehaviour {
     [Client]
     void TransmitRotation()
     {
-
+        lastPlayerRotation = myTransform.rotation;
+        CmdSendRotationToServer(lastPlayerRotation);
     }
 
     [Command]
     void CmdSendRotationToServer(Quaternion rotationToSend)
     {
+        syncedRotation = rotationToSend;
     }
 
 
     void LerpRotation()
     {
+        myTransform.rotation = Quaternion.Lerp(myTransform.rotation, syncedRotation, Time.deltaTime * rotationLerpRate);
     }
     #endregion
 
