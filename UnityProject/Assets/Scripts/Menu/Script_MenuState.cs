@@ -146,10 +146,33 @@ public class Script_MenuState : MonoBehaviour {
                     Application.Quit();
                 }
                 break;
+            case MenuStates.MENU_CONNECT:
+                if(CurrentState == MenuStates.MENU_MAIN)
+                {
+                    connectMenu.SetActive(false);
+                    mainMenu.SetActive(true);
+                }
+                else if (CurrentState == MenuStates.CONNECT_CONNECTING_TO_SERVER)
+                {
+                    Debug.Log("Connecting to Server");
+                    manager.StartClient();
+                }
+                break;
             case MenuStates.MENU_SETUP:
                 if(CurrentState == MenuStates.MENU_MAIN)
                 {
-
+                    setupMenu.SetActive(false);
+                    mainMenu.SetActive(true);
+                }
+                else if (CurrentState == MenuStates.SETUP_STARTING_SERVER)
+                {
+                    Debug.Log("Starting Server");
+                    manager.StartServer();
+                }
+                else if (CurrentState == MenuStates.SETUP_STARTING_HOST)
+                {
+                    Debug.Log("Starting Host");
+                    manager.StartHost();
                 }
                 break;
         }
