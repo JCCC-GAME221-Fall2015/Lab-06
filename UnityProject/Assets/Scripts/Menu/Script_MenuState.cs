@@ -160,6 +160,7 @@ public class Script_MenuState : MonoBehaviour {
                 else if(CurrentState == MenuStates.CONNECT_CONNECTING_TO_SERVER)
                 {
                     Debug.Log("Tranition from Connect to Connecting to Server");
+                    manager.StartClient();
                 }
                 break;
             case MenuStates.MENU_SETUP:
@@ -171,11 +172,14 @@ public class Script_MenuState : MonoBehaviour {
                 }
                 else if(CurrentState == MenuStates.SETUP_STARTING_HOST)
                 {
+
                     Debug.Log("Transition from Setup to Start Host");
+                    manager.StartHost();
                 }
                 else if (CurrentState == MenuStates.SETUP_STARTING_SERVER)
                 {
                     Debug.Log("Transition from Setup to Server Start");
+                    manager.StartServer();
                 }
                 break;
         }
