@@ -2,7 +2,8 @@
 using System.Collections;
 using UnityEngine.Networking;
 
-public class Script_PlayerSync : NetworkBehaviour {
+public class Script_PlayerSync : NetworkBehaviour
+{
 
     [SyncVar]
     Vector3 syncedPosition;
@@ -37,35 +38,45 @@ public class Script_PlayerSync : NetworkBehaviour {
 
     void Start()
     {
-
+        if (!isLocalPlayer)
+        {
+            Destroy(myController);
+            Destroy(myRigidbody);
+            Destroy(myCollider);
+            Destroy(myCameraObject);
+        }
     }
 
     void FixedUpdate()
     {
+        if (isLocalPlayer)
+        {
+            TransmitRotation();
+            TransmitPosition();
+        }
 
     }
-
-    // Update is called once per frame
-    void Update ()
-    {
-
-	}
 
     #region rotation
     [Client]
     void TransmitRotation()
     {
-
+        lastPlayerRotation = myTransform.rotation;
+        CmdSendRotationToServer(myTransform.rotation);
     }
 
     [Command]
     void CmdSendRotationToServer(Quaternion rotationToSend)
     {
+        syncedRotation = rotationToSend;
     }
 
 
     void LerpRotation()
     {
+        myTransform.rotation = Quaternion.Lerp(myTransform.rotation,
+            syncedRotation, Time.deltaTime * rotationLerpRate);
+
     }
     #endregion
 
@@ -73,17 +84,20 @@ public class Script_PlayerSync : NetworkBehaviour {
     [Client]
     void TransmitPosition()
     {
-
+        lastPlayerPosition = myTransform.position;
+        CmdSendPositionToServer(myTransform.position);
     }
 
     [Command]
     void CmdSendPositionToServer(Vector3 positionToSend)
     {
+        syncedPosition = positionToSend;
     }
 
     void LerpPosition()
     {
-
+        myTransform.position = Vector3.Lerp(myTransform.position,
+            syncedPosition, Time.deltaTime * positionLerpRate);
     }
     #endregion
 }
