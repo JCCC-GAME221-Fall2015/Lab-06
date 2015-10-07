@@ -171,12 +171,12 @@ public class Script_MenuState : MonoBehaviour {
 				else if (CurrentState == MenuStates.SETUP_STARTING_SERVER) 
 				{
 					Debug.Log ("Transitioning from Start to Server Starting");
-					manager.StartHost();
+					manager.StartServer();
 				} 
 				else if (CurrentState == MenuStates.SETUP_STARTING_HOST) 
 				{
 					Debug.Log ("Transition from Start to Host Starting");
-					manager.StartServer();
+					manager.StartHost();
 				}
 				break;
 			default:
