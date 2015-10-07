@@ -152,7 +152,6 @@ Camera:
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
-  m_TargetEye: 3
   m_HDR: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
@@ -353,7 +352,6 @@ MonoBehaviour:
   myRigidbody: {fileID: 5436342}
   myCollider: {fileID: 13620180}
   myController: {fileID: 11407938}
-  myFireScript: {fileID: 11487012}
   myCameraObject: {fileID: 152456}
   myCamera: {fileID: 2069504}
   myListener: {fileID: 8161334}
