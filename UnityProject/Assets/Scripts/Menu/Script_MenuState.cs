@@ -26,6 +26,10 @@ public enum MenuCommands
     CONNECT_CLIENT
 }
 
+// @author: Tiffany Fischer
+// @modified by: Nathan Boehning
+// @summary: Creates the transitions between the different menus/scenes.
+
 public class Script_MenuState : MonoBehaviour {
 
     Dictionary<MenuTransitions, MenuStates> allTransitions; //A  dictionary for all state transitions
@@ -211,6 +215,7 @@ public class Script_MenuState : MonoBehaviour {
     /// <summary>
     /// Updates the IP on the manager
     /// </summary>
+    /// @author: Tiffany Fischer
     /// <param name="message">The IP to update to</param>
     public void UpdateIP(Object message)
     {
@@ -228,6 +233,11 @@ public class Script_MenuState : MonoBehaviour {
 
     }
 
+    /// <summary>
+    /// Updates the network port on the manager
+    /// </summary>
+    /// @author: Tiffany Fischer
+    /// <param name="message">The network port to update to</param>
     public void UpdatePort(Object message)
     {
         Text textObj = ((GameObject)message).GetComponent<Text>();
@@ -243,6 +253,11 @@ public class Script_MenuState : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Updates the name on the player prefab
+    /// </summary>
+    /// @author: Nathan Boehning
+    /// <param name="message">The name to update to</param>
     public void UpdateName(Object message)
     {
         Text textObj = ((GameObject)message).GetComponent<Text>();
