@@ -40,6 +40,9 @@ public class Script_MenuState : MonoBehaviour {
     public GameObject setupMenu;                            //A reference to the setup menu game object for menu navigation
     public NetworkManager manager;                          //A reference to the network manager for managing connections
 
+    [HideInInspector]
+    public string playerName;                              // Variable to hold the player name until the player can fetch it.
+
     // Use this for initialization
     void Start () {
 
@@ -242,6 +245,16 @@ public class Script_MenuState : MonoBehaviour {
 
     public void UpdateName(Object message)
     {
+        Text textObj = ((GameObject)message).GetComponent<Text>();
+        if (textObj.text == "")
+        {
+            manager.playerPrefab.GetComponent<Script_PlayerHealth>().playerName = "player";
+        }
+        else
+        {
+            manager.playerPrefab.GetComponent<Script_PlayerHealth>().playerName = textObj.text;
+        }
 
+        Debug.Log("Updating player name to... " + textObj.text);
     }
 }

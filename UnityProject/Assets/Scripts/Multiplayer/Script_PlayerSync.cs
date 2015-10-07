@@ -37,35 +37,55 @@ public class Script_PlayerSync : NetworkBehaviour {
 
     void Start()
     {
-
+        if (!isLocalPlayer)
+        {
+            Destroy(myController);
+            Destroy(myRigidbody);
+            Destroy(myCollider);
+            Destroy(myCameraObject);
+        }
     }
 
     void FixedUpdate()
     {
-
+        if (isLocalPlayer)
+        {
+            TransmitRotation();
+            TransmitPosition();
+        }
     }
 
     // Update is called once per frame
     void Update ()
     {
-
+        if (!isLocalPlayer)
+        {
+            LerpRotation();
+            LerpPosition();
+        }
 	}
 
     #region rotation
     [Client]
     void TransmitRotation()
     {
-
+        if (Quaternion.Angle(myTransform.rotation, lastPlayerRotation) > rotationThreshold)
+        {
+            CmdSendRotationToServer(myTransform.rotation);
+            lastPlayerRotation = myTransform.rotation;
+        }
     }
 
     [Command]
     void CmdSendRotationToServer(Quaternion rotationToSend)
     {
+        syncedRotation = rotationToSend;
     }
 
 
     void LerpRotation()
     {
+        myTransform.rotation = Quaternion.Lerp(myTransform.rotation, syncedRotation, Time.deltaTime * rotationLerpRate);
     }
     #endregion
 
@@ -73,17 +93,22 @@ public class Script_PlayerSync : NetworkBehaviour {
     [Client]
     void TransmitPosition()
     {
-
+        if (Mathf.Abs((myTransform.position - lastPlayerPosition).magnitude) > positionThreshold)
+        {
+            CmdSendPositionToServer(myTransform.position);
+            lastPlayerPosition = myTransform.position;
+        }
     }
 
     [Command]
     void CmdSendPositionToServer(Vector3 positionToSend)
     {
+        syncedPosition = positionToSend;
     }
 
     void LerpPosition()
     {
-
+        myTransform.position = Vector3.Lerp(myTransform.position, syncedPosition, Time.deltaTime * positionLerpRate);
     }
     #endregion
 }

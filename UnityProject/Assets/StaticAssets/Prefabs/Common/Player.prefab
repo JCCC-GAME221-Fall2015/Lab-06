@@ -353,7 +353,6 @@ MonoBehaviour:
   myRigidbody: {fileID: 5436342}
   myCollider: {fileID: 13620180}
   myController: {fileID: 11407938}
-  myFireScript: {fileID: 11487012}
   myCameraObject: {fileID: 152456}
   myCamera: {fileID: 2069504}
   myListener: {fileID: 8161334}
@@ -369,10 +368,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 140314}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: afb7bc7f98053ec42ae638d63446f8ac, type: 3}
+  m_Script: {fileID: 11500000, guid: 0f5f2eb69b2ac824ebbc822d5efa2cc9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blaster: {fileID: 123522, guid: de86c38ade66f9b4986ead62479b4b06, type: 2}
+  playerNameText: {fileID: 0}
 --- !u!136 &13620180
 CapsuleCollider:
   m_ObjectHideFlags: 1

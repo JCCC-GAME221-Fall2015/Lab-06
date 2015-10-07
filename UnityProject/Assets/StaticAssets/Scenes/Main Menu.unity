@@ -1063,8 +1063,8 @@ RectTransform:
   m_RootOrder: 3
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -123.082352}
-  m_SizeDelta: {x: 476, y: 7.88235188}
+  m_AnchoredPosition: {x: 470.25, y: -311.787476}
+  m_SizeDelta: {x: 940.5, y: 60.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &518621569
 MonoBehaviour:
@@ -1313,8 +1313,8 @@ RectTransform:
   m_RootOrder: 2
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -85.0764694}
-  m_SizeDelta: {x: 476, y: 18.1294098}
+  m_AnchoredPosition: {x: 470.25, y: -220.0625}
+  m_SizeDelta: {x: 940.5, y: 73.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &558667810
 MonoBehaviour:
@@ -1977,8 +1977,8 @@ RectTransform:
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -9.0647049}
-  m_SizeDelta: {x: 476, y: 18.1294098}
+  m_AnchoredPosition: {x: 470.25, y: -36.6124992}
+  m_SizeDelta: {x: 940.5, y: 73.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1010332946
 MonoBehaviour:
@@ -2283,8 +2283,8 @@ RectTransform:
   m_RootOrder: 6
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -231.976471}
-  m_SizeDelta: {x: 476, y: 7.88235188}
+  m_AnchoredPosition: {x: 470.25, y: -580.462463}
+  m_SizeDelta: {x: 940.5, y: 60.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1145878304
 GameObject:
@@ -2399,8 +2399,8 @@ RectTransform:
   m_RootOrder: 4
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -161.088226}
-  m_SizeDelta: {x: 476, y: 18.1294098}
+  m_AnchoredPosition: {x: 470.25, y: -403.512482}
+  m_SizeDelta: {x: 940.5, y: 73.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1230948508
 MonoBehaviour:
@@ -2965,8 +2965,8 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -199.094116}
-  m_SizeDelta: {x: 476, y: 7.88235188}
+  m_AnchoredPosition: {x: 470.25, y: -495.237488}
+  m_SizeDelta: {x: 940.5, y: 60.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1549518286
 MonoBehaviour:
@@ -3030,7 +3030,18 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_EndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1957048378}
+        m_MethodName: UpdateName
+        m_Mode: 2
+        m_Arguments:
+          m_ObjectArgument: {fileID: 896498220}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.InputField+SubmitEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_OnValueChange:
@@ -3169,8 +3180,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -47.0705872}
-  m_SizeDelta: {x: 476, y: 7.88235188}
+  m_AnchoredPosition: {x: 470.25, y: -128.337494}
+  m_SizeDelta: {x: 940.5, y: 60.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1656413310
 MonoBehaviour:
@@ -3847,6 +3858,7 @@ MonoBehaviour:
   connectMenu: {fileID: 459314375}
   setupMenu: {fileID: 1718284048}
   manager: {fileID: 165892449}
+  playerName: 
 --- !u!1 &1975808454
 GameObject:
   m_ObjectHideFlags: 0
@@ -3881,8 +3893,8 @@ RectTransform:
   m_RootOrder: 7
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 238, y: -264.858795}
-  m_SizeDelta: {x: 476, y: 7.88235188}
+  m_AnchoredPosition: {x: 470.25, y: -665.687439}
+  m_SizeDelta: {x: 940.5, y: 60.2249985}
   m_Pivot: {x: .5, y: .5}
 --- !u!114 &1975808456
 MonoBehaviour:
